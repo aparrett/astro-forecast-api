@@ -1,5 +1,5 @@
 export default {
-  routes: {
+  server: {
     handler: 'src/app.server',
     timeout: 29,
     events: [
