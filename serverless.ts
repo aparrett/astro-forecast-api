@@ -8,12 +8,11 @@ const slsConfig: AWS = {
   plugins: [
     'serverless-esbuild',
     'serverless-offline',
-    'serverless-dotenv-plugin',
   ],
   provider: {
     name: 'aws',
     runtime: 'nodejs20.x',
-    stage: "${opt:stage, env:STAGE, 'local'}",
+    stage: "${env:ENV, 'local'}",
     deploymentBucket: '${self:custom.AWS_ACCOUNT}-astro-forecast-lambdas',
     iam: {
       role: {
@@ -30,7 +29,7 @@ const slsConfig: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps',
-      ENV: '${self:provider.stage}',
+      ENV: "${env: ENV, 'local'}"
     },
     apiGateway: {
       shouldStartNameWithService: true,
@@ -40,7 +39,6 @@ const slsConfig: AWS = {
   package: { individually: true },
   custom: {
     AWS_ACCOUNT: 433987512250,
-    test_var: '${env:TEST_VAR}',
     esbuild: {
       bundle: true,
       minify: true,

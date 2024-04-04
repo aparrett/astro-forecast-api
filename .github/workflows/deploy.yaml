@@ -3,13 +3,10 @@ on:
   push:
     branches:
       - main
-    secrets:
-      ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
-      ACCESS_KEY_SECRET: ${{ secrets.ACCESS_KEY_SECRET }}
 
 env:
   region: us-east-1
-  TEST_VAR: prod_test
+  ENV: prod
 
 jobs:
   deploy:

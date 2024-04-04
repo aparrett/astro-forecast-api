@@ -4,7 +4,7 @@ import sls from 'serverless-http';
 const app = express();
 
 app.get('/test', (_, res: Response) => {
-  res.status(200).send({ test: process.env.TEST_VAR });
+  res.status(200).send({ stage: process.env.ENV || 'undefined' });
 });
 
 app.get('/*', async (_, res: Response) => {
