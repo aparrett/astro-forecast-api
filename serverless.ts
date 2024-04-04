@@ -46,6 +46,16 @@ const slsConfig: AWS = {
       concurrency: 10,
     },
   },
+  resources: {
+    Resources: {
+      ServerLogGroup: {
+        Type: 'AWS::Logs::LogGroup',
+        Properties: {
+          RetentionInDays: '7',
+        },
+      },
+    },
+  },
 };
 
 // must use module.exports for sls offline
