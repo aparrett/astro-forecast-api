@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ inputs.node_version }}
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
 
@@ -37,4 +37,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy
-        run: npm run sls config credentials -- --overwrite --provider aws --key ${{ secrets.ACCESS_KEY }} --secret ${{ secrets.SECRET_KEY }} && npm run deploy:ci
+        run: npm run deploy:ci
