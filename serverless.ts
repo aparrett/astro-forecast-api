@@ -5,15 +5,12 @@ const slsConfig: AWS = {
   service: 'astro-forecast-api',
   useDotenv: true,
   frameworkVersion: '3',
-  plugins: [
-    'serverless-esbuild',
-    'serverless-offline',
-  ],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs20.x',
     stage: "${env:ENV, 'local'}",
-    deploymentBucket: '${self:custom.AWS_ACCOUNT}-astro-forecast-lambdas',
+    deploymentBucket: '${self:custom.AWS_ACCOUNT}-deployment',
     iam: {
       role: {
         statements: [
@@ -29,7 +26,7 @@ const slsConfig: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps',
-      ENV: "${env: ENV, 'local'}"
+      ENV: "${env: ENV, 'local'}",
     },
     apiGateway: {
       shouldStartNameWithService: true,
