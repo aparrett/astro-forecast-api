@@ -11,17 +11,6 @@ const slsConfig: AWS = {
     runtime: 'nodejs20.x',
     stage: "${env:ENV, 'local'}",
     deploymentBucket: '${self:custom.AWS_ACCOUNT}-deployment',
-    iam: {
-      role: {
-        statements: [
-          {
-            Effect: 'Allow',
-            Action: '*',
-            Resource: '*',
-          },
-        ],
-      },
-    },
     region: 'us-east-1',
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
