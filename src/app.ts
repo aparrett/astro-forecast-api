@@ -1,16 +1,16 @@
 import express, { Response } from 'express';
 import sls from 'serverless-http';
-import { getForecastByPoint } from './services/nws';
+import forecast from './services/forecast';
 
 const app = express();
 
-app.get('/forecast', async (_, res: Response) => {
-  const forecast = await getForecastByPoint('38.92', '-91.7');
-  res.status(200).send(forecast);
+const router = express.Router();
+
+router.use('/forecast', forecast);
+router.get('/ping', async (_, res: Response) => {
+  res.status(200).send('Ping success.');
 });
 
-app.get('/ping', async (_, res: Response) => {
-  res.status(200).send({ hello: 'Hello World!' });
-});
+app.use('/', router);
 
 export const server = sls(app);
