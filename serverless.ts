@@ -27,6 +27,8 @@ const slsConfig: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps',
       ENV: "${env: ENV, 'local'}",
+      // Use a fake API Key for local
+      NWS_API_KEY: "{env: NWS_API_KEY}, '(myweatherapp.com, contact@myweatherapp.com)'"
     },
     apiGateway: {
       shouldStartNameWithService: true,

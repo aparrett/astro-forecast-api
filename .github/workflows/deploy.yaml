@@ -40,6 +40,11 @@ jobs:
       - name: Run tests
         run: npm run test:ci
 
+      - name: Set Environment Variables
+        shell: bash
+        run: |
+          echo 'NWS_API_KEY=${{ secrets.NWS_API_KEY }}' >> $GITHUB_ENV
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
