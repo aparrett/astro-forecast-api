@@ -1,5 +1,5 @@
+import { ForecastGridResponse, PointResponse } from 'astro-ws-types';
 import ky from 'ky';
-import { ForecastGridResponse, PointResponse } from './nws.types';
 
 const api = ky.create({
   prefixUrl: 'https://api.weather.gov/',

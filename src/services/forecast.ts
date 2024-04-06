@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { getForecastByPoint } from './external/nws';
 import { mapToFarenheit, mapToMph } from '../utils/forecastMapping';
-import { GetForecastParams } from 'astro-ws-types'
+import { ForecastGridResponse, GetForecastParams, GetForecastResponse, Units } from 'astro-ws-types'
 
 const router = express.Router();
 
@@ -43,7 +43,7 @@ const validateParams = (params: GetForecastParams) => {
   }
 };
 
-const transform = ({ properties }: ForecastGridResponse, units: Units) => {
+const transform = ({ properties }: ForecastGridResponse, units: Units): GetForecastResponse => {
   if (units === 'metric') {
     return {
       updateTime: properties.updateTime,

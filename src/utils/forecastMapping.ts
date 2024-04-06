@@ -1,4 +1,4 @@
-import { ForecastValue } from '../services/external/nws.types';
+import { ForecastValue } from 'astro-ws-types';
 
 export const mapToFarenheit = (values: ForecastValue[]): ForecastValue[] =>
   values.map((v) => ({
