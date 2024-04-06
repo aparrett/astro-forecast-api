@@ -1,8 +1,16 @@
 import express, { Response } from 'express';
 import sls from 'serverless-http';
 import forecast from './services/forecast';
+import cors from 'cors';
 
 const app = express();
+
+const corsOptions = {
+  origin: 'https://d6vmy0uap08yx.cloudfront.net/',
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 const router = express.Router();
 

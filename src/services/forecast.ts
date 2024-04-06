@@ -1,17 +1,11 @@
 import express, { Request, Response } from 'express';
 import { getForecastByPoint } from './external/nws';
-import { ForecastGridResponse } from './external/nws.types';
 import { mapToFarenheit, mapToMph } from '../utils/forecastMapping';
+import { GetForecastParams } from 'astro-ws-types'
 
 const router = express.Router();
 
-interface GetParams {
-  lat: string;
-  long: string;
-  units?: Units;
-}
-
-router.get('/', async (req: Request<{}, {}, {}, GetParams>, res: Response) => {
+router.get('/', async (req: Request<{}, {}, {}, GetForecastParams>, res: Response) => {
   const params = req.query;
   try {
     validateParams(params);
@@ -34,7 +28,7 @@ router.get('/', async (req: Request<{}, {}, {}, GetParams>, res: Response) => {
   }
 });
 
-const validateParams = (params: GetParams) => {
+const validateParams = (params: GetForecastParams) => {
   if (!params.lat || !params.long) {
     throw new Error('Parameters "lat" and "long" are required.');
   }
@@ -65,9 +59,7 @@ const transform = ({ properties }: ForecastGridResponse, units: Units) => {
       probabilityOfPrecipitation: properties.probabilityOfPrecipitation.values,
     };
   }
-  /**
-   * PT1H describes how long the metric will stay the same for
-   */
+
   return {
     updateTime: properties.updateTime,
     elevation: properties.elevation,
