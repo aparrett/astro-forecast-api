@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { getForecastByPoint } from './external/nws';
 import { mapToFarenheit, mapToMph } from '../utils/forecastMapping';
-import { ForecastGridResponse, GetForecastParams, GetForecastResponse, Units } from 'astro-ws-types'
+import { ForecastGridResponse, GetForecastParams, GetForecastResponse, Units } from 'astro-ws-types';
 
 const router = express.Router();
 
@@ -19,6 +19,7 @@ router.get('/', async (req: Request<{}, {}, {}, GetForecastParams>, res: Respons
     const forecast = transform(nwsForecastResponse, units);
     return res.status(200).send(forecast);
   } catch (e: any) {
+    console.error(e);
     if (e.status === 404) {
       return res.status(404).send({ message: e.detail });
     }
