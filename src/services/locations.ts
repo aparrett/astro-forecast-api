@@ -21,7 +21,7 @@ router.get('/', async (req: Request<{}, {}, {}, GetLocationsParams>, res: Respon
   try {
     const queryResponse = await getLocationsByQuery(location);
     const locations = queryResponse.features.map(({ properties }) => ({
-      name: properties.place_formatted,
+      name: properties.name + ', ' + properties.place_formatted,
       coordinates: properties.coordinates,
     }));
     cache.set(location, locations);
