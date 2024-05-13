@@ -1,5 +1,5 @@
 {
-  "name": "astro-forecast-api",
+  "name": "astro-ws-api",
   "version": "1.0.0",
   "description": "",
   "main": "serverless.ts",
@@ -30,7 +30,7 @@
     "@types/express": "^4.17.21",
     "@types/jest": "29.5.12",
     "@types/node": "^20",
-    "astro-ws-types": "^0.0.6",
+    "astro-ws-types": "^0.0.7",
     "esbuild": "^0.14.13",
     "eslint": "8.16.0",
     "jest": "29.7.0",

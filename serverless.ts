@@ -16,7 +16,6 @@ const slsConfig: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps',
       ENV: "${env:ENV, 'local'}",
-      // myweatherapp is a fake API Key for local
       NWS_API_KEY: '${env:NWS_API_KEY}',
       MAPBOX_API_TOKEN: '${env:MAPBOX_API_TOKEN}',
     },
