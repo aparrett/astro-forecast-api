@@ -1,8 +1,14 @@
 import express, { Request, Response } from 'express';
 import { getSolarDetails } from './external/sunrise-sunset';
 import { GetSolarDetailsParams } from 'astro-ws-types';
+import NodeCache from 'node-cache';
 
 const router = express.Router();
+
+const cache = new NodeCache({
+  stdTTL: 604800, // 7 days
+  checkperiod: 86400, // once per day
+});
 
 router.get('/', async (req: Request<{}, {}, {}, GetSolarDetailsParams>, res: Response) => {
   const params = req.query;
@@ -13,7 +19,13 @@ router.get('/', async (req: Request<{}, {}, {}, GetSolarDetailsParams>, res: Res
   }
 
   try {
+    const key = `Lat${params.lat}Long${params.long}D${params.date}`;
+    const cached = cache.get(key);
+    if (cached) {
+      return res.status(200).send(cached);
+    }
     const solarDetailsResponse = await getSolarDetails(params.lat, params.long, params.date);
+    cache.set(key, solarDetailsResponse);
     return res.status(200).send(solarDetailsResponse);
   } catch (e: any) {
     console.error(e);
@@ -36,4 +48,4 @@ const validateParams = (params: GetSolarDetailsParams) => {
   }
 };
 
-export default router
+export default router;
